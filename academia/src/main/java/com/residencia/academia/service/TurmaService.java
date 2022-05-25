@@ -18,7 +18,8 @@ public class TurmaService {
 	}
 
 	public Turma findTurmaById(Integer id) {
-		return turmaRepository.findById(id).get();
+		return turmaRepository.findById(id).isPresent() ?
+				turmaRepository.findById(id).get():null;
 	}
 
 	public Turma saveTurma(Turma turma) {
@@ -32,4 +33,6 @@ public class TurmaService {
 	public void deleteTurma(Integer id) { // um teste qualquer coisa pega o outro.
 		turmaRepository.deleteById(id);
 	}
+	
+	
 }

@@ -11,7 +11,18 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
+
+/*
+ * @JsonIdentityInfo(
+	    generator = ObjectIdGenerators.PropertyGenerator.class,
+	    property = "idTurma")
+ */
+
 @Table(name = "turma")
 public class Turma {
 
@@ -33,9 +44,15 @@ public class Turma {
 	private Date dataFim;
 
 	@ManyToOne
+	//@JsonBackReference // many to one (Quem recebe a chave esrangeiras recebe esse)
+	//@JsonIgnore
 	@JoinColumn(name = "id_instrutor", referencedColumnName = "id_instrutor")
 	private Instrutor instrutor;
 
+	@ManyToOne
+	@JoinColumn(name = "id_atividade", referencedColumnName = "id_atividade")
+	private Atividade atividade;
+	
 	public Integer getIdTurma() {
 		return idTurma;
 	}
@@ -82,6 +99,14 @@ public class Turma {
 
 	public void setInstrutor(Instrutor instrutor) {
 		this.instrutor = instrutor;
+	}
+
+	public Atividade getAtividade() {
+		return atividade;
+	}
+
+	public void setAtividade(Atividade atividade) {
+		this.atividade = atividade;
 	}
 
 }

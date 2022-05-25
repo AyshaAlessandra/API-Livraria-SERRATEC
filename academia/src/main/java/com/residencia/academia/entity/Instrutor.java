@@ -11,7 +11,19 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
+
+/*
+ @JsonIdentityInfo(
+	    generator = ObjectIdGenerators.PropertyGenerator.class,
+	    property = "idInstrutor")
+
+ */
+
 @Table(name = "instrutor")
 public class Instrutor {
 
@@ -33,6 +45,8 @@ public class Instrutor {
 	private Integer titulacaoInstrutor;
 
 	@OneToMany(mappedBy = "instrutor")
+	@JsonIgnore //uma das formas de matar recursividade
+	//@JsonManagedReference // one to many
 	private List<Turma> turmaList;
 
 	public Integer getIdInstrutor() {
