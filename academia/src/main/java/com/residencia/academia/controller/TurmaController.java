@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.residencia.academia.dto.TurmaDTO;
 import com.residencia.academia.entity.Turma;
 import com.residencia.academia.exeption.NoSuchElementFoundException;
 import com.residencia.academia.service.TurmaService;
@@ -27,7 +28,11 @@ public class TurmaController {
 	
 	@GetMapping
 	public ResponseEntity<List<Turma>> findAllTurma(){
-		return new ResponseEntity<>(turmaService.findAllTurma(), HttpStatus.OK);
+		List<Turma> turma = turmaService.findAllTurma();
+		if(turma == null)
+			throw new NoSuchElementFoundException("Não há nenhuma turma");
+		else
+			return new ResponseEntity<>(turmaService.findAllTurma(), HttpStatus.OK);
 	}
 	
 	@GetMapping("/{id}")
@@ -42,6 +47,12 @@ public class TurmaController {
 	@PostMapping
 	public ResponseEntity<Turma> saveTurma(@RequestBody Turma turma){
 		return new ResponseEntity<>(turmaService.saveTurma(turma), HttpStatus.CREATED);
+	}
+	
+	@PostMapping("/{dto}")
+	public ResponseEntity<TurmaDTO> saveTurmaDTO(@RequestBody TurmaDTO turmaDTO){
+		TurmaDTO novaTurmaDTO = turmaService.saveTurmaDTO(turmaDTO);
+		return new ResponseEntity<>(novaTurmaDTO, HttpStatus.CREATED);
 	}
 	
 	@PutMapping

@@ -29,7 +29,10 @@ public class InstrutorController {
 	@GetMapping
 	public ResponseEntity<List<Instrutor>> findAlInstrutor(){
 		List<Instrutor> instrutorList = instrutorService.findAllInstrutor();
-		return new ResponseEntity<>(instrutorList, HttpStatus.OK);
+		if(instrutorList == null)
+			throw new NoSuchElementFoundException("Não há nenhum instrutor");
+		else
+			return new ResponseEntity<>(instrutorService.findAllInstrutor(), HttpStatus.OK);
 	}
 	
 	//do professor
@@ -37,10 +40,10 @@ public class InstrutorController {
 	@GetMapping("/dto/{id}")
     public ResponseEntity<InstrutorDTO> findInstrutorDTOById(@PathVariable Integer id) {
         InstrutorDTO instrutorDTO = instrutorService.findInstrutorDTOById(id);
-        /*if(null == instrutor)
-            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        if(null == instrutorDTO)
+        	throw new NoSuchElementFoundException("Não foi possível encontrar InstrutorDTO com o id " + id + " pois não existe");
         else
-        */    return new ResponseEntity<>(instrutorDTO, HttpStatus.OK);
+           return new ResponseEntity<>(instrutorDTO, HttpStatus.OK);
     }
 	
 	//meu

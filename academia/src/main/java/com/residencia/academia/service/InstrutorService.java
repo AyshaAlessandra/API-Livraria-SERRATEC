@@ -18,7 +18,7 @@ public class InstrutorService {
 	InstrutorRepository instrutorRepository;
 
 	public List<Instrutor> findAllInstrutor() {
-		return instrutorRepository.findAll();
+		return instrutorRepository.findAll().isEmpty() ? null : instrutorRepository.findAll();
 	}
 	
 	  public Instrutor findInstrutorById(Integer id) { return
@@ -27,15 +27,16 @@ public class InstrutorService {
 	 
 	// DTO
 	public InstrutorDTO findInstrutorDTOById(Integer id) {
-		Instrutor instrutor = instrutorRepository.findById(id).isPresent() ? instrutorRepository.findById(id).get()
-				: null;
+		Instrutor instrutor = instrutorRepository.findById(id).isPresent() ? 
+				instrutorRepository.findById(id).get() : null;
 
 		InstrutorDTO instrutorDTO = new InstrutorDTO();
 		if (null != instrutor) {
 			instrutorDTO = converterEntidadeParaDto(instrutor);
+			return instrutorDTO;
 		}
 
-		return instrutorDTO;
+		return null;
 	}
 
 	public InstrutorDTO saveInstrutorDTO(InstrutorDTO instrutorDTO) {
