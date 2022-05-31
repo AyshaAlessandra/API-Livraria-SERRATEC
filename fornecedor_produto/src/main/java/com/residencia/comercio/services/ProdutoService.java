@@ -48,4 +48,21 @@ public class ProdutoService {
 	public void deletePorId(Integer id) {
 		produtoRepository.deleteById(id);
 	}
+	
+	 /* public Produto updateComId(Produto produto, Integer idProduto) {
+	Produto produtoBD = produtoRepository.findById(idProduto).isPresent()
+			? produtoRepository.findById(idProduto).get()
+			: null;
+	
+	Produto produtoAtualizado = null;
+	if(null != produtoBD) {
+		produtoBD.setNomeProduto(produto.getNomeProduto());
+		produtoBD.setSku(produto.getSku());
+		produtoBD.setFornecedor(produto.getFornecedor());
+		produtoBD.setCategoria(produto.getCategoria());
+		produtoAtualizado = produtoReposit
+dele id service
+public void deleteComId(Integer idProduto) {		
+	produtoRepository.deleteById(idProduto);
+}	*/
 }

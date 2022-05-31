@@ -29,6 +29,11 @@ public class Categoria {
 
 	@OneToMany(mappedBy = "categoria")
 	private List<Produto> produtoList;
+	
+	@Column(name = "imagem")
+	private String nomeImagem;
+	
+	
 
 	public Integer getIdCategoria() {
 		return idCategoria;
@@ -45,6 +50,15 @@ public class Categoria {
 	public void setNomeCategoria(String nomeCategoria) {
 		this.nomeCategoria = nomeCategoria;
 	}
+	
+
+	public String getNomeImagem() {
+		return nomeImagem;
+	}
+
+	public void setNomeImagem(String nomeImagem) {
+		this.nomeImagem = nomeImagem;
+	}
 
 	public List<Produto> getProdutoList() {
 		return produtoList;
@@ -53,5 +67,11 @@ public class Categoria {
 	public void setProdutoList(List<Produto> produtoList) {
 		this.produtoList = produtoList;
 	}
-
+	
+	@Override
+	public String toString() {
+		return "Categoria [idCategoria=" + idCategoria + ", nomeCategoria=" + nomeCategoria + ", produtoList="
+				+ produtoList + ", nomeImagem=" + nomeImagem + "]";
+	}
+	
 }

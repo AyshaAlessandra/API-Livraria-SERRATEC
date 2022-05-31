@@ -2,10 +2,6 @@ package com.residencia.comercio.controllers;
 
 import java.util.List;
 
-import javax.validation.Valid;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,14 +15,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.residencia.comercio.dtos.CadastroEmpresaReceitaDTO;
+import com.residencia.comercio.dtos.CepDTO;
+import com.residencia.comercio.dtos.CnpjDTO;
 import com.residencia.comercio.dtos.FornecedorDTO;
 import com.residencia.comercio.entities.Fornecedor;
 import com.residencia.comercio.exceptions.NoSuchElementFoundException;
 import com.residencia.comercio.services.FornecedorService;
-
-import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
 
 @RestController
 @RequestMapping("/fornecedor")
@@ -41,13 +35,22 @@ public class FornecedorController {
 	}
 	
 	@GetMapping("/cnpj/{cnpj}")
-	public ResponseEntity<CadastroEmpresaReceitaDTO> consultarDadosPorCnpj(String cnpj) {
-		CadastroEmpresaReceitaDTO cadEmpresaDTO = fornecedorService.consultarDadosPorCnpj(cnpj);
-		if(null == cadEmpresaDTO)
-			throw new NoSuchElementFoundException("Não foram encontrados dados para o CNPJ informado");
-		else
-			return new ResponseEntity<>(cadEmpresaDTO, HttpStatus.OK);
-	}
+    public ResponseEntity<CnpjDTO> consultarDadosPorCnpj(String cnpj) {
+        CnpjDTO cadEmpresaDTO = fornecedorService.consultarDadosPorCnpj(cnpj);
+        if (null == cadEmpresaDTO)
+            throw new NoSuchElementFoundException("Não foram encontrados dados para o CNPJ informado");
+        else
+            return new ResponseEntity<>(cadEmpresaDTO, HttpStatus.OK);
+    }
+	
+	@GetMapping("/cep/{cep}")
+    public ResponseEntity<CepDTO> consultarDadosPorCep(String cep) {
+        CepDTO cepDTO = fornecedorService.consultarDadosPorCep(cep);
+        if (null == cepDTO)
+            throw new NoSuchElementFoundException("Não foram encontrados dados para o cep informado");
+        else
+            return new ResponseEntity<>(cepDTO, HttpStatus.OK);
+    }
 
 	@GetMapping("/dto/{id}")
 	public ResponseEntity<FornecedorDTO> findFornecedorDTOById(@PathVariable Integer id) {
